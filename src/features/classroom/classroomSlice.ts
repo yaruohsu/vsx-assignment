@@ -55,9 +55,17 @@ export const classroomSlice = createAppSlice({
     ),
   }),
 
-  selectors: {},
+  selectors: {
+    selectClassInfo: classroom => ({
+      name: classroom.name,
+      link: classroom.url,
+      id: classroom.id,
+    }),
+  },
 })
 
 
 export const { getClassAsync } =
   classroomSlice.actions
+
+export const { selectClassInfo } = classroomSlice.selectors

@@ -4,12 +4,14 @@ import { FaTimes } from "react-icons/fa";
 
 const ModalContainer = styled.div<{ $width?: number; }> `
   position: relative;  
-  top: 10%;
   background: #eee;
-  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: ${props => props.$width ? props.$width : '100%'};
+  width: ${props => props.$width ? `${props.$width}px` : '100%'};
+
+ @media (max-width: 768px) {
+    width: 80%;
+  }
 `;
 
 const CloseButton = styled.button`
