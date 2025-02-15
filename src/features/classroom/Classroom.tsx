@@ -6,11 +6,12 @@ import {
 } from './classroomSlice';
 import QRcodeModal from './components/QRcodeModal';
 import styled from "styled-components";
+import ClassroomModal from "./components/ClassroomModal";
 
 const FlexContainer = styled.div`
   display: flex;
   padding: 50px;
-  width: calc(100vw - 50px);
+  width: calc(100vw - 100px);
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -25,6 +26,7 @@ const FlexContainer = styled.div`
 export const Classroom = () => {
   const dispatch = useAppDispatch();
   const [isQRcodeModalOpen, setIsQRcodeModalOpen] = useState(true);
+  const [isClassroomModalOpen, setIsClassroomModalOpen] = useState(true);
   const classInfo = useAppSelector(selectClassInfo);
 
   useEffect(() => {
@@ -37,6 +39,10 @@ export const Classroom = () => {
         {...classInfo}
         isOpen={isQRcodeModalOpen}
         onClose={async () => setIsQRcodeModalOpen(false)}
+      />
+      <ClassroomModal
+        isOpen={isClassroomModalOpen}
+        onClose={async () => setIsClassroomModalOpen(false)}
       />
     </FlexContainer>
 
