@@ -5,11 +5,24 @@ import styled from "styled-components";
 import { FaEllipsisV } from "react-icons/fa";
 
 import Modal from "./Modal";
+import type { Student } from "../classroomSlice";
+import StudentCard from "./StudentCard";
+
+
+
+interface ClassroomModalProps {
+  classroomName: string;
+  students: Student[],
+  isOpen: boolean;
+  onClose: () => void;
+}
 
 enum activeTabStatus {
   studentList = 0,
   group = 1,
 }
+
+
 
 const Content = styled.div`
   min-width: 300px;
@@ -38,7 +51,7 @@ const TabContainer = styled.div`
 const Tab = styled.button<{ $active: boolean }>`
   padding: 8px 16px;
   border: none;
-  background: ${props => props.$active ? 'white' : '#d0d0d0'};
+  background: ${props => props.$active ? 'white' : props.theme.disabled};
   color: ${props => props.$active ? 'dodgerblue' : '#333'};
   border-radius: 8px 8px 0 0;
   cursor: pointer;
@@ -53,6 +66,8 @@ const Card = styled.div`
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
   height: 310px;
   padding: 20px 30px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 `;
 
 const MoreButton = styled.button`
@@ -69,14 +84,16 @@ const MoreButton = styled.button`
   }
 `;
 
+const StudentsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
 
-
-interface ClassroomModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
 const ClassroomModal: React.FC<ClassroomModalProps> = ({
+  classroomName,
+  students,
   isOpen,
   onClose,
 }) => {
@@ -89,7 +106,7 @@ const ClassroomModal: React.FC<ClassroomModalProps> = ({
     >
       <Content>
         <Header>
-          <h2>302 Science</h2>
+          <h2>{classroomName}</h2>
           <FaUser />
           <span>16/30</span>
         </Header>
@@ -99,7 +116,7 @@ const ClassroomModal: React.FC<ClassroomModalProps> = ({
               $active={activeTab === activeTabStatus.studentList}
               onClick={() => setActiveTab(activeTabStatus.studentList)}
             >
-              Student List
+              Students
             </Tab>
             <Tab
               $active={activeTab === activeTabStatus.group}
@@ -108,11 +125,24 @@ const ClassroomModal: React.FC<ClassroomModalProps> = ({
               Group
             </Tab>
           </TabContainer>
-          <MoreButton> <FaEllipsisV /></MoreButton>
+          <MoreButton>
+            <FaEllipsisV />
+          </MoreButton>
         </TabPanel>
 
         <Card>
-          {activeTab === activeTabStatus.studentList && 'studentList'}
+          {activeTab === activeTabStatus.studentList && (
+            <StudentsContainer>
+              {students.map((student, index) =>
+                <StudentCard
+                  key={`${index}${student.studentId}${student.name}`}
+                  number={index + 1}
+                  student={student}
+                  onMinusClick={() => { console.log('onMinusClick') }}
+                  onPlusClick={() => { console.log('onPlusClick') }}
+                />)}
+            </StudentsContainer>
+          )}
           {activeTab === activeTabStatus.group && 'group'}
         </Card>
       </Content>
