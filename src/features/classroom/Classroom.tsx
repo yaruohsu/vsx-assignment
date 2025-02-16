@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import {
   getClassAsync,
   selectClassInfo,
+  selectStudents,
+  increaseScore,
+  decreaseScore,
 } from './classroomSlice';
 import QRcodeModal from './components/QRcodeModal';
-import styled from "styled-components";
 import ClassroomModal from "./components/ClassroomModal";
 
 const FlexContainer = styled.div`
@@ -28,10 +31,26 @@ export const Classroom = () => {
   const [isQRcodeModalOpen, setIsQRcodeModalOpen] = useState(true);
   const [isClassroomModalOpen, setIsClassroomModalOpen] = useState(true);
   const classInfo = useAppSelector(selectClassInfo);
+  const students = useAppSelector(selectStudents);
 
   useEffect(() => {
     dispatch(getClassAsync())
   }, []);
+
+  const handleMinusScore = (studentId: number | null) => {
+    if (studentId !== null) {
+      dispatch(decreaseScore(studentId));
+    }
+
+  };
+
+  const handlePlusScore = (studentId: number | null) => {
+    if (studentId !== null) {
+      dispatch(increaseScore(studentId));
+    }
+  };
+
+
 
   return (
     <FlexContainer>
@@ -42,7 +61,12 @@ export const Classroom = () => {
       />
       <ClassroomModal
         isOpen={isClassroomModalOpen}
-        onClose={async () => setIsClassroomModalOpen(false)}
+        classroomName={classInfo.name}
+        classroomLimit={classInfo.limit}
+        students={students}
+        onClose={() => setIsClassroomModalOpen(false)}
+        onPlusScoreClick={handlePlusScore}
+        onMinusScoreClick={handleMinusScore}
       />
     </FlexContainer>
 

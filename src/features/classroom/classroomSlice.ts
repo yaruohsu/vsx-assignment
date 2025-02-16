@@ -1,5 +1,7 @@
+import { createSelector } from 'reselect';
 import { createAppSlice } from "../../app/createAppSlice"
 import { fetchClass } from "./classroomAPI";
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface Student {
   name: string;
@@ -29,45 +31,81 @@ const initialState: ClassroomSliceState = {
   limit: 0,
 }
 
-
 export const classroomSlice = createAppSlice({
   name: "classroom",
   initialState,
   reducers: create => ({
     getClassAsync: create.asyncThunk(
       async () => {
-        const response = await fetchClass()
-        return response.data
+        const response = await fetchClass();
+        return response.data;
       },
       {
         pending: state => {
-          state.status = "loading"
+          state.status = "loading";
         },
         fulfilled: (state, action) => {
-          state.status = "idle"
-          state.name = action.payload.name
-          state.id = action.payload.id
-          state.url = action.payload.url
-          state.students = action.payload.students
+          state.status = "idle";
+          state.name = action.payload.name;
+          state.id = action.payload.id;
+          state.url = action.payload.url;
+          state.students = action.payload.students;
+          state.limit = action.payload.limit;
+
         },
         rejected: state => {
-          state.status = "failed"
+          state.status = "failed";
         },
+      },
+    ),
+    increaseScore: create.reducer(
+      (state, action: PayloadAction<number>) => {
+        const index = state.students.findIndex(student => student.id === action.payload);
+        if (index !== -1) {
+          const preStudentState = state.students[index];
+          state.students[index] = {
+            ...preStudentState,
+            score: preStudentState.score + 1,
+          };
+        }
+      },
+    ),
+    decreaseScore: create.reducer(
+      (state, action: PayloadAction<number>) => {
+        const index = state.students.findIndex(student => student.id === action.payload);
+        if (index !== -1) {
+          const preStudentState = state.students[index];
+          state.students[index] = {
+            ...preStudentState,
+            score: preStudentState.score - 1,
+          };
+        }
       },
     ),
   }),
 
-  selectors: {
-    selectClassInfo: classroom => ({
-      name: classroom.name,
-      link: classroom.url,
-      id: classroom.id,
-    }),
-  },
+
 })
 
+// action
+export const { getClassAsync, increaseScore, decreaseScore } = classroomSlice.actions
 
-export const { getClassAsync } =
-  classroomSlice.actions
 
-export const { selectClassInfo } = classroomSlice.selectors
+// selector
+const selectClassroom = (state: { classroom: ClassroomSliceState }) => state.classroom;
+
+export const selectClassInfo = createSelector(
+  [selectClassroom],
+  (classroom) => ({
+    name: classroom.name,
+    link: classroom.url,
+    id: classroom.id,
+    limit: classroom.limit,
+  })
+);
+export const selectStudents = createSelector(
+  [selectClassroom],
+  (classroom) => classroom.students
+);
+
+

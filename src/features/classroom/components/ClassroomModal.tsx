@@ -15,8 +15,8 @@ interface ClassroomModalProps {
   students: Student[],
   isOpen: boolean;
   onClose: () => void;
-  onMinusScoreClick: (studentId: number | null) => number | null;
-  onPlusScoreClick: (studentId: number | null) => number | null;
+  onMinusScoreClick: (studentId: number | null) => void;
+  onPlusScoreClick: (studentId: number | null) => void;
 }
 
 enum activeTabStatus {
