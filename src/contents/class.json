@@ -2,131 +2,132 @@
   "name": "302 Science",
   "id": "X58E9647",
   "url": "https://www.classswift.viewsonic.io/",
+  "limit": 60,
   "students": [
     {
       "name": "Grace Haley",
       "score": 1,
-      "studentId": 114728
+      "id": 114728
     },
     {
       "name": "Ignacia Collins",
       "score": 0,
-      "studentId": null
+      "id": null
     },
     {
       "name": "Len Sanford",
       "score": 17,
-      "studentId": 114744
+      "id": 114744
     },
     {
       "name": "Brady Montoya",
       "score": 14,
-      "studentId": 114370
+      "id": 114370
     },
     {
       "name": "Kelly Peters",
       "score": 5,
-      "studentId": 114786
+      "id": 114786
     },
     {
       "name": "Stone Bruce",
       "score": 0,
-      "studentId": null
+      "id": null
     },
     {
       "name": "Jayme Davidson",
       "score": 10,
-      "studentId": 114796
+      "id": 114796
     },
     {
       "name": "Pamela Mejia",
       "score": 15,
-      "studentId": 114548
+      "id": 114548
     },
     {
       "name": "Reese Diaz",
       "score": 10,
-      "studentId": 114351
+      "id": 114351
     },
     {
       "name": "Sara Rhodes",
       "score": 19,
-      "studentId": 114434
+      "id": 114434
     },
     {
       "name": "Brenda Ward",
       "score": 0,
-      "studentId": null
+      "id": null
     },
     {
       "name": "Edan Bauer",
       "score": 12,
-      "studentId": 114828
+      "id": 114828
     },
     {
       "name": "Aristotle Carney",
       "score": 3,
-      "studentId": 114973
+      "id": 114973
     },
     {
       "name": "Theodore Shepard",
       "score": 19,
-      "studentId": 114200
+      "id": 114200
     },
     {
       "name": "Davis Carlson",
       "score": 0,
-      "studentId": null
+      "id": null
     },
     {
       "name": "Karleigh Huff",
       "score": 0,
-      "studentId": null
+      "id": null
     },
     {
       "name": "Alexander O'Neill",
       "score": 2,
-      "studentId": 114063
+      "id": 114063
     },
     {
       "name": "Stephanie Bond",
       "score": 13,
-      "studentId": 114165
+      "id": 114165
     },
     {
       "name": "MacKenzie Valentine",
       "score": 9,
-      "studentId": 114030
+      "id": 114030
     },
     {
       "name": "Jarrod Price",
       "score": 8,
-      "studentId": 114246
+      "id": 114246
     },
     {
       "name": "Alexis Good",
       "score": 13,
-      "studentId": 114351
+      "id": 114351
     },
     {
       "name": "Sylvester Sullivan",
       "score": 18,
-      "studentId": 114964
+      "id": 114964
     },
     {
       "name": "Ciaran Mcgowan",
       "score": 14,
-      "studentId": 114288
+      "id": 114288
     },
     {
       "name": "Gabriel Mcgee",
       "score": 4,
-      "studentId": 114774
+      "id": 114774
     },
     {
       "name": "Stephen Crane",
       "score": 3,
-      "studentId": 114337
+      "id": 114337
     }
   ]
 }
