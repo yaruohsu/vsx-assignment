@@ -2,6 +2,8 @@ import { createSelector } from 'reselect';
 import { createAppSlice } from "../../app/createAppSlice"
 import { fetchClass } from "./classroomAPI";
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { shuffleArray } from '../../utils/shuffleArray';
+import { chunkArray } from '../../utils/chunkArray';
 
 export interface Student {
   name: string;
@@ -15,6 +17,7 @@ export interface Class {
   url: string;
   limit: number;
   students: Student[];
+  studentGroups: Student[][];
 }
 
 
@@ -29,6 +32,7 @@ const initialState: ClassroomSliceState = {
   students: [],
   status: "idle",
   limit: 0,
+  studentGroups: [],
 }
 
 export const classroomSlice = createAppSlice({
@@ -52,6 +56,9 @@ export const classroomSlice = createAppSlice({
           state.students = action.payload.students;
           state.limit = action.payload.limit;
 
+          const shuffleStudents = shuffleArray(action.payload.students.filter(student => student.id !== null));
+          const studentGroups = chunkArray(shuffleStudents, 5);
+          state.studentGroups = studentGroups;
         },
         rejected: state => {
           state.status = "failed";
@@ -107,5 +114,11 @@ export const selectStudents = createSelector(
   [selectClassroom],
   (classroom) => classroom.students
 );
+
+export const selectStudentGroup = createSelector(
+  [selectClassroom],
+  (classroom) => classroom.studentGroups
+);
+
 
 

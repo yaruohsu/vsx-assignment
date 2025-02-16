@@ -13,6 +13,7 @@ interface ClassroomModalProps {
   classroomName: string;
   classroomLimit: number;
   students: Student[],
+  studentGroups: Student[][],
   isOpen: boolean;
   onClose: () => void;
   onMinusScoreClick: (studentId: number | null) => void;
@@ -91,11 +92,22 @@ const StudentsContainer = styled.div`
   gap: 8px;
 `;
 
+const GroupContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const Group = styled.div`
+  display: flex;
+  gap: 8px;
+`;
 
 const ClassroomModal: React.FC<ClassroomModalProps> = ({
   classroomName,
   classroomLimit,
   students,
+  studentGroups,
   isOpen,
   onClose,
   onMinusScoreClick,
@@ -147,7 +159,24 @@ const ClassroomModal: React.FC<ClassroomModalProps> = ({
                 />)}
             </StudentsContainer>
           )}
-          {activeTab === activeTabStatus.group && 'group'}
+          {activeTab === activeTabStatus.group && (
+            <GroupContainer>
+              {studentGroups.map((group, groupIndex) => (
+                <Group key={groupIndex}>
+                  <h3>Group {groupIndex + 1}</h3>
+                  {group.map((student, studentIndex) => (
+                    <StudentCard
+                      key={`${studentIndex}${student.id}${student.name}`}
+                      number={studentIndex + 1}
+                      student={student}
+                      onMinusClick={() => onMinusScoreClick(student.id)}
+                      onPlusClick={() => onPlusScoreClick(student.id)}
+                    />
+                  ))}
+                </Group>
+              ))}
+            </GroupContainer>
+          )}
         </Card>
       </Content>
     </Modal >

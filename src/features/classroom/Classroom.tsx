@@ -5,6 +5,7 @@ import {
   getClassAsync,
   selectClassInfo,
   selectStudents,
+  selectStudentGroup,
   increaseScore,
   decreaseScore,
 } from './classroomSlice';
@@ -32,6 +33,8 @@ export const Classroom = () => {
   const [isClassroomModalOpen, setIsClassroomModalOpen] = useState(true);
   const classInfo = useAppSelector(selectClassInfo);
   const students = useAppSelector(selectStudents);
+  const studentGroups = useAppSelector(selectStudentGroup);
+
 
   useEffect(() => {
     dispatch(getClassAsync())
@@ -64,6 +67,7 @@ export const Classroom = () => {
         classroomName={classInfo.name}
         classroomLimit={classInfo.limit}
         students={students}
+        studentGroups={studentGroups}
         onClose={() => setIsClassroomModalOpen(false)}
         onPlusScoreClick={handlePlusScore}
         onMinusScoreClick={handleMinusScore}
