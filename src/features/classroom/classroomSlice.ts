@@ -1,16 +1,17 @@
 import { createAppSlice } from "../../app/createAppSlice"
 import { fetchClass } from "./classroomAPI";
 
-interface Student {
+export interface Student {
   name: string;
   score: number
-  studentId: number | null;
+  id: number | null;
 }
 
 export interface Class {
   name: string;
   id: string;
   url: string;
+  limit: number;
   students: Student[];
 }
 
@@ -25,6 +26,7 @@ const initialState: ClassroomSliceState = {
   url: '',
   students: [],
   status: "idle",
+  limit: 0,
 }
 
 

@@ -83,7 +83,7 @@ const Button = styled.button<{ $backgroundColor: string; $disabled: boolean }>`
 
 
 const StudentCard: React.FC<StudentCardProps> = ({ number, student, onMinusClick, onPlusClick }) => {
-  const disabled = student.studentId === null;
+  const disabled = student.id === null;
 
   return (
     <Container $disabled={disabled}>

@@ -9,19 +9,20 @@ import type { Student } from "../classroomSlice";
 import StudentCard from "./StudentCard";
 
 
-
 interface ClassroomModalProps {
   classroomName: string;
+  classroomLimit: number;
   students: Student[],
   isOpen: boolean;
   onClose: () => void;
+  onMinusScoreClick: (studentId: number | null) => number | null;
+  onPlusScoreClick: (studentId: number | null) => number | null;
 }
 
 enum activeTabStatus {
   studentList = 0,
   group = 1,
 }
-
 
 
 const Content = styled.div`
@@ -93,9 +94,12 @@ const StudentsContainer = styled.div`
 
 const ClassroomModal: React.FC<ClassroomModalProps> = ({
   classroomName,
+  classroomLimit,
   students,
   isOpen,
   onClose,
+  onMinusScoreClick,
+  onPlusScoreClick,
 }) => {
   const [activeTab, setActiveTab] = useState(activeTabStatus.studentList);
 
@@ -108,7 +112,7 @@ const ClassroomModal: React.FC<ClassroomModalProps> = ({
         <Header>
           <h2>{classroomName}</h2>
           <FaUser />
-          <span>16/30</span>
+          <span>{students.length}/{classroomLimit}</span>
         </Header>
         <TabPanel>
           <TabContainer>
@@ -135,11 +139,11 @@ const ClassroomModal: React.FC<ClassroomModalProps> = ({
             <StudentsContainer>
               {students.map((student, index) =>
                 <StudentCard
-                  key={`${index}${student.studentId}${student.name}`}
+                  key={`${index}${student.id}${student.name}`}
                   number={index + 1}
                   student={student}
-                  onMinusClick={() => { console.log('onMinusClick') }}
-                  onPlusClick={() => { console.log('onPlusClick') }}
+                  onMinusClick={() => onMinusScoreClick(student.id)}
+                  onPlusClick={() => onPlusScoreClick(student.id)}
                 />)}
             </StudentsContainer>
           )}
