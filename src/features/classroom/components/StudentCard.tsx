@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 import type { Student } from '../classroomSlice';
 
-const DECREASE_COLOR = '#4CAF50';
-const INCREASE_COLOR = '#ff4444';
+const DECREASE_COLOR = '#ff4444';
+const INCREASE_COLOR = '#4CAF50';
 
 interface StudentCardProps {
   number: number;
